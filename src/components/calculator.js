@@ -3,23 +3,30 @@ import { Button,
 	ContainedButton,
 	InputLabel,
 	GridList,
-	GridListTile
+	GridListTile,
+	Grid
 } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
 
-const rootStyles = {
-	display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
-	overflow: 'hidden',
-	width: '400',
-	heigth: '600'
-}
-const gridStyles = {
-	width: '100',
-	height: '150'
-}
+const styles = theme => ({
+	rootStyles: {
+		display: 'flex',
+		flexWrap: 'wrap',
+		justifyContent: 'space-around',
+		overflow: 'hidden',
+		width: '400px'
+		// heigth: '600'
+	},
+	gridStyles: {
+		width: '80%'
+	},
+	screen: {
+		borderStyle: 'solid'
+	}
+});
 
-export default class Calculator extends Component {
+
+class Calculator extends Component {
 	constructor(props) {
 		super(props);
 		this.calculatedValue = '';
@@ -72,39 +79,43 @@ export default class Calculator extends Component {
 		});
 	}
 	render() {
+		const { classes } = this.props;
 		const { displayedValue } = this.state;
 		return(
-			<div>
-				<div>{displayedValue}</div>
-				<div>
-					<Button variant="contained" onClick={this.handleClick} value="AC">AC</Button>
-					<Button variant="contained" onClick={this.handleClick} value="+">+/-</Button>
-					<Button variant="contained" onClick={this.handleClick} value="%">%</Button>
-					<Button variant="contained" onClick={this.handleClick} value="/">/</Button>
-				</div>
-				<div>
-					<Button variant="contained" onClick={this.handleClick} value="7">7</Button>
-					<Button variant="contained" onClick={this.handleClick} value="8">8</Button>
-					<Button variant="contained" onClick={this.handleClick} value="9">9</Button>
-					<Button variant="contained" onClick={this.handleClick} value="*">*</Button>
-				</div>
-				<div>
-					<Button variant="contained" onClick={this.handleClick} value="4">4</Button>
-					<Button variant="contained" onClick={this.handleClick} value="5">5</Button>
-					<Button variant="contained" onClick={this.handleClick} value="6">6</Button>
-					<Button variant="contained" onClick={this.handleClick} value="-">-</Button>
-				</div>
-				<div>
-					<Button variant="contained" onClick={this.handleClick} value="1">1</Button>
-					<Button variant="contained" onClick={this.handleClick} value="2">2</Button>
-					<Button variant="contained" onClick={this.handleClick} value="3">3</Button>
-					<Button variant="contained" onClick={this.handleClick} value="+">+</Button>
-				</div>
-				<div>
-					<Button variant="contained" onClick={this.handleClick} value="0">0</Button>
-					<Button variant="contained" onClick={this.handleClick} value=".">.</Button>
-					<Button variant="contained" onClick={this.handleClick} value="=">=</Button>
-				</div>
+			<Grid className={classes.rootStyles}>
+				<GridList cols={1}  cellHeight={50} className={classes.gridStyles} style={{width: '80%'}}>
+					<span className={classes.screen}>{displayedValue}</span>
+				</GridList>
+				
+				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="AC">AC</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="+">+/-</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="%">%</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="/">/</Button></GridListTile>
+				</GridList>
+				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="7">7</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="8">8</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="9">9</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="*">*</Button></GridListTile>
+				</GridList>
+					<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="4">4</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="5">5</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="6">6</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="-">-</Button></GridListTile>
+				</GridList>
+				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="1">1</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="2">2</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="3">3</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="+">+</Button></GridListTile>
+				</GridList>
+				<GridList cols={3} cellHeight={50} className={classes.gridStyles} >
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="0">0</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value=".">.</Button></GridListTile>
+					<GridListTile><Button variant="contained" onClick={this.handleClick} value="=">=</Button></GridListTile>
+				</GridList>
 			{/* <div  className={rootStyles}>
 				<GridList
 						cellHeight={300}
@@ -123,9 +134,10 @@ export default class Calculator extends Component {
 					</GridList>
 					<InputLabel />
 					<Button>ClickMe</Button>
-			</div> */}
+			</Gr> */}
 				
-			</div>
+			</Grid>
 		)
 	}
 }
+export default  withStyles(styles)(Calculator);
