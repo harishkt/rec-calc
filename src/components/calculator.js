@@ -10,6 +10,11 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
 	rootStyles: {
+		position: 'absolute',
+    	top: '50%',
+    	left: '50%',
+    	marginTop: '-50px',
+    	marginLeft: '-50p',
 		display: 'flex',
 		flexWrap: 'wrap',
 		justifyContent: 'space-around',
@@ -18,13 +23,20 @@ const styles = theme => ({
 		// heigth: '600'
 	},
 	gridStyles: {
-		width: '80%'
+		width: '100%'
 	},
 	screen: {
 		borderStyle: 'solid'
 	}
 });
 
+const Tile = ({ value, handleClick }) => {
+	return(
+		<GridListTile key={value}>
+			<Button variant="contained" onClick={handleClick} value={value} style={{float: 'left'}}>{value}</Button>
+		</GridListTile>
+	)
+};
 
 class Calculator extends Component {
 	constructor(props) {
@@ -37,8 +49,8 @@ class Calculator extends Component {
 	}
 
 	handleClick(event) {
-		console.log('handleClick triggered');
-		const value = event.target.value;
+		const value = event.currentTarget.value;
+		console.log(`handleClick triggered with value - ${value}`);
 		const { displayedValue } = this.state;
 		let updatedValue = displayedValue;
 		console.log(`calculatedValue is ${this.calculatedValue}`)
@@ -72,6 +84,7 @@ class Calculator extends Component {
 				updatedValue = '';
 				this.calculatedValue = '';
 				break;
+			default: break;
 		}
 		
 		this.setState({
@@ -83,38 +96,37 @@ class Calculator extends Component {
 		const { displayedValue } = this.state;
 		return(
 			<Grid className={classes.rootStyles}>
-				<GridList cols={1}  cellHeight={50} className={classes.gridStyles} style={{width: '80%'}}>
+				<GridList cols={1}  cellHeight={50} className={classes.gridStyles}>
 					<span className={classes.screen}>{displayedValue}</span>
 				</GridList>
 				
-				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="AC">AC</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="+">+/-</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="%">%</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="/">/</Button></GridListTile>
+				<GridList cols={3}  cellHeight={50} className={classes.gridStyles} >
+					<Tile value="AC" handleClick={this.handleClick} />
+					<Tile value="%" handleClick={this.handleClick} />
+					<Tile value="/" handleClick={this.handleClick} />
 				</GridList>
 				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="7">7</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="8">8</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="9">9</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="*">*</Button></GridListTile>
-				</GridList>
-					<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="4">4</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="5">5</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="6">6</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="-">-</Button></GridListTile>
+					<Tile value="7" handleClick={this.handleClick} />
+					<Tile value="8" handleClick={this.handleClick} />
+					<Tile value="9" handleClick={this.handleClick} />
+					<Tile value="*" handleClick={this.handleClick} />
 				</GridList>
 				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="1">1</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="2">2</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="3">3</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="+">+</Button></GridListTile>
+					<Tile value="4" handleClick={this.handleClick} />
+					<Tile value="5" handleClick={this.handleClick} />
+					<Tile value="6" handleClick={this.handleClick} />
+					<Tile value="-" handleClick={this.handleClick} />
+				</GridList>
+				<GridList cols={4}  cellHeight={50} className={classes.gridStyles} >
+					<Tile value="1" handleClick={this.handleClick} />
+					<Tile value="2" handleClick={this.handleClick} />
+					<Tile value="3" handleClick={this.handleClick} />
+					<Tile value="4" handleClick={this.handleClick} />
 				</GridList>
 				<GridList cols={3} cellHeight={50} className={classes.gridStyles} >
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="0">0</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value=".">.</Button></GridListTile>
-					<GridListTile><Button variant="contained" onClick={this.handleClick} value="=">=</Button></GridListTile>
+					<Tile value="0" handleClick={this.handleClick} />
+					<Tile value="." handleClick={this.handleClick} />
+					<Tile value="=" handleClick={this.handleClick} />
 				</GridList>
 			{/* <div  className={rootStyles}>
 				<GridList
